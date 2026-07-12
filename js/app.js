@@ -109,26 +109,25 @@ function firstSetup(){
     let habitsData = JSON.parse(localStorage.getItem('7kaih_habits')) || [];
     let editingId = null;
 
-    // Initialize Element SDK
-    if (window.elementSdk) {
-      window.elementSdk.init({
-        defaultConfig,
-        onConfigChange: async (config) => {
-          const schoolEl = document.getElementById('school-name');
-          if (schoolEl) {
-            schoolEl.textContent = config.school_name || defaultConfig.school_name;
-          }
-        },
-        mapToCapabilities: (config) => ({
-          recolorables: [],
-          borderables: [],
-          fontEditable: undefined,
-          fontSizeable: undefined
-        }),
-        mapToEditPanelValues: (config) => new Map([
-          ['school_name', config.school_name || defaultConfig.school_name]
-        ])
-      });
+    // Initialize
+document.addEventListener('DOMContentLoaded', () => {
+
+      const schoolName =
+    appConfig.school_name ||
+    defaultConfig.school_name;
+
+      }
+
+      checkSetup();
+      updateProfileDisplay();
+      initYearSelector();
+      setCurrentDateAndMonth();
+      renderDataList();
+
+      document.getElementById('select-date').addEventListener('change', renderDataList);
+      document.getElementById('select-month').addEventListener('change', renderDataList);
+      document.getElementById('select-year').addEventListener('change', renderDataList);
+});
     }
 
     // Habit configurations
