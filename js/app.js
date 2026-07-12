@@ -561,7 +561,7 @@ const data = {
           item.date = inputs[0]?.value || item.date;
           item.time = inputs[1]?.value || item.time;
           item.note = inputs[2]?.value || item.note;
-          
+            item.updated_at = new Date().toISOString();          
           localStorage.setItem('7kaih_habits', JSON.stringify(habitsData));
           editingId = null;
           renderDataList();
