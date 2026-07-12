@@ -25,6 +25,84 @@ function loadConfig(){
 }
 
 let appConfig = loadConfig();
+function saveConfig(config){
+
+    localStorage.setItem(
+        APP.storageKey,
+        JSON.stringify(config)
+    );
+
+    appConfig=config;
+
+}
+function firstSetup(){
+
+    const school =
+        document.getElementById(
+            "setup-school"
+        ).value.trim();
+
+    const teacher =
+        document.getElementById(
+            "setup-teacher"
+        ).value.trim();
+
+    const year =
+        document.getElementById(
+            "setup-year"
+        ).value.trim();
+
+    const semester =
+        document.getElementById(
+            "setup-semester"
+        ).value;
+
+    const agree =
+        document.getElementById(
+            "setup-check"
+        );
+
+    if(school===""){
+
+        alert(
+            "Nama sekolah wajib diisi."
+        );
+
+        return;
+
+    }
+
+    if(!agree.checked){
+
+        alert(
+            "Centang persetujuan terlebih dahulu."
+        );
+
+        return;
+
+    }
+
+    saveConfig({
+
+        school_name:school,
+
+        teacher_name:teacher,
+
+        year:year,
+
+        semester:semester,
+
+        locked:true
+
+    });
+
+    alert(
+        "Setup berhasil."
+    );
+
+    location.reload();
+
+}
     // App State
     let currentFilter = 'daily';
     let studentData = JSON.parse(localStorage.getItem('7kaih_student')) || null;
