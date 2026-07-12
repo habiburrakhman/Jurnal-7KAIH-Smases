@@ -247,6 +247,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openModal(type) {
+        function openSettings(){
+
+    alert(
+        "Menu Pengaturan masih dalam tahap pengembangan."
+    );
+
+}
       const overlay = document.getElementById('modal-overlay');
       const content = document.getElementById('modal-content');
       const title = document.getElementById('modal-title');
