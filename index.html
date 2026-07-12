@@ -101,6 +101,104 @@
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full bg-slate-50 overflow-auto">
+  <!-- =========================
+     FIRST SETUP
+========================== -->
+
+<div id="setup-screen" class="hidden fixed inset-0 bg-white z-[9999] overflow-auto">
+
+  <div class="max-w-lg mx-auto p-6">
+
+    <h1 class="text-2xl font-black text-blue-700 mb-2">
+      Selamat Datang
+    </h1>
+
+    <p class="text-slate-600 mb-6">
+      Sebelum menggunakan aplikasi,
+      silakan lakukan pengaturan sekolah.
+    </p>
+
+    <div class="space-y-4">
+
+      <div>
+        <label class="font-semibold">
+          Nama Sekolah
+        </label>
+
+        <input
+          id="setup-school"
+          class="w-full border rounded-xl p-3">
+      </div>
+
+      <div>
+        <label class="font-semibold">
+          Nama Guru
+        </label>
+
+        <input
+          id="setup-teacher"
+          class="w-full border rounded-xl p-3">
+      </div>
+
+      <div>
+        <label class="font-semibold">
+          Tahun Pelajaran
+        </label>
+
+        <input
+          id="setup-year"
+          placeholder="2026 / 2027"
+          class="w-full border rounded-xl p-3">
+      </div>
+
+      <div>
+
+        <label class="font-semibold">
+          Semester
+        </label>
+
+        <select
+          id="setup-semester"
+          class="w-full border rounded-xl p-3">
+
+          <option>Ganjil</option>
+          <option>Genap</option>
+
+        </select>
+
+      </div>
+
+      <label class="flex gap-2 items-start">
+
+        <input
+          id="setup-check"
+          type="checkbox">
+
+        <span class="text-sm">
+
+Saya memahami bahwa
+pengaturan sekolah
+akan dikunci setelah disimpan.
+
+        </span>
+
+      </label>
+
+      <button
+
+        onclick="saveSetup()"
+
+        class="w-full bg-blue-600 text-white rounded-xl p-3 font-bold">
+
+        SIMPAN
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
   <div id="app" class="w-full min-h-full pb-8">
    <!-- Header -->
    <header class="bg-gradient-to-br from-royal via-blue-400 to-cyan-500 text-white pt-8 pb-16 px-4 rounded-b-[2.5rem] shadow-lg shadow-blue-400/30 relative overflow-hidden">
@@ -322,6 +420,7 @@
 
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
+      checkSetup();
       updateProfileDisplay();
       initYearSelector();
       setCurrentDateAndMonth();
@@ -930,6 +1029,70 @@
         closeModal();
       }
     });
+ function checkSetup(){
+
+    const cfg =
+        localStorage.getItem("7kaih_config");
+
+    if(!cfg){
+
+        document
+        .getElementById("setup-screen")
+        .classList
+        .remove("hidden");
+
+    }
+
+}
+   function saveSetup(){
+
+    if(
+        !document
+        .getElementById("setup-check")
+        .checked
+    ){
+
+        alert(
+        "Centang persetujuan terlebih dahulu."
+        );
+
+        return;
+
+    }
+
+    const config={
+
+        school:
+
+document.getElementById("setup-school").value,
+
+        teacher:
+
+document.getElementById("setup-teacher").value,
+
+        year:
+
+document.getElementById("setup-year").value,
+
+        semester:
+
+document.getElementById("setup-semester").value,
+
+        locked:true
+
+    };
+
+    localStorage.setItem(
+
+        "7kaih_config",
+
+        JSON.stringify(config)
+
+    );
+
+    location.reload();
+
+}
   </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dbc35ab06cb61bc',t:'MTc3MzQxNzE4Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
