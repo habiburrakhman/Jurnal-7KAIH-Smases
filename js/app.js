@@ -245,15 +245,14 @@ document.addEventListener('DOMContentLoaded', () => {
         filledEl.classList.add('hidden');
       }
     }
-
-    function openModal(type) {
-        function openSettings(){
+    function openSettings(){
 
     alert(
         "Menu Pengaturan masih dalam tahap pengembangan."
     );
 
 }
+    function openModal(type) {
       const overlay = document.getElementById('modal-overlay');
       const content = document.getElementById('modal-content');
       const title = document.getElementById('modal-title');
