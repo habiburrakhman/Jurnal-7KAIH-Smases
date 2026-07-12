@@ -382,16 +382,31 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       
-      const data = {
+      const now = new Date().toISOString();
+
+const data = {
+
         id: Date.now(),
+
+        created_at: now,
+
+        updated_at: now,
+
         type: type,
+
         habit: config.title,
+
         icon: config.icon,
+
         date: date,
+
         time: time,
+
         duration: duration,
+
         note: note
-      };
+
+};
       
       habitsData.push(data);
       localStorage.setItem('7kaih_habits', JSON.stringify(habitsData));
