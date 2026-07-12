@@ -1,9 +1,30 @@
-  <script>
     // Default configuration
-    const defaultConfig = {
-      school_name: 'SMA NEGERI 11 BANJARMASIN'
-    };
+    const APP = {
 
+    name: "Jurnal 7KAIH SMASES",
+
+    version: "0.1.0",
+
+    storageKey: "7kaih_config"
+
+};
+    const defaultConfig = {
+    school_name: 'Belum dikonfigurasi'
+};
+
+function loadConfig(){
+
+    const data = localStorage.getItem(APP.storageKey);
+
+    if(data){
+        return JSON.parse(data);
+    }
+
+    return defaultConfig;
+
+}
+
+let appConfig = loadConfig();
     // App State
     let currentFilter = 'daily';
     let studentData = JSON.parse(localStorage.getItem('7kaih_student')) || null;
@@ -776,5 +797,4 @@ document.getElementById("setup-semester").value,
     location.reload();
 
 }
-  </script>
 
