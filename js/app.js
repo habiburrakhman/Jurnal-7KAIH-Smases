@@ -118,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       }
 
-      checkSetup();
       updateProfileDisplay();
       initYearSelector();
       setCurrentDateAndMonth();
