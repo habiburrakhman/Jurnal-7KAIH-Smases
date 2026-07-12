@@ -105,8 +105,51 @@ function firstSetup(){
 }
     // App State
     let currentFilter = 'daily';
-    let studentData = JSON.parse(localStorage.getItem('7kaih_student')) || null;
-    let habitsData = JSON.parse(localStorage.getItem('7kaih_habits')) || [];
+const DB = {
+
+    studentKey : "7kaih_student",
+
+    habitKey : "7kaih_habits",
+
+    getStudent(){
+
+        return JSON.parse(
+            localStorage.getItem(this.studentKey)
+        ) || null;
+
+    },
+
+    saveStudent(data){
+
+        localStorage.setItem(
+            this.studentKey,
+            JSON.stringify(data)
+        );
+
+    },
+
+    getHabits(){
+
+        return JSON.parse(
+            localStorage.getItem(this.habitKey)
+        ) || [];
+
+    },
+
+    saveHabits(data){
+
+        localStorage.setItem(
+            this.habitKey,
+            JSON.stringify(data)
+        );
+
+    }
+
+};
+
+let studentData = DB.getStudent();
+
+let habitsData = DB.getHabits();
     let editingId = null;
 
     // Initialize
