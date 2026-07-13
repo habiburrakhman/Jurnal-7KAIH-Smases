@@ -150,7 +150,8 @@ const DB = {
 let studentData = DB.getStudent();
 
 let habitsData = DB.getHabits();
-    let editingId = null;
+
+let editingId = null;
 
     // Habit configurations
     const habitConfig = {
