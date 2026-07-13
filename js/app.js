@@ -499,30 +499,29 @@ const data = {
     }
 
     function getFilteredData() {
+        const dateEl = document.getElementById('select-date');
+          const monthEl = document.getElementById('select-month');
+          const yearEl = document.getElementById('select-year');
 
-    const dateEl = document.getElementById('select-date');
-    const monthEl = document.getElementById('select-month');
-    const yearEl = document.getElementById('select-year');
-
-    if (!dateEl || !monthEl || !yearEl) {
+        if (!dateEl || !monthEl || !yearEl) {
         return habitsData;
-    }
+        }
 
-    const selectedDate = new Date(dateEl.value);
+        const selectedDate = new Date(dateEl.value);
 
-    if (currentFilter === 'daily') {
+        if (currentFilter === 'daily') {
 
-        return habitsData.filter(d => d.date === dateEl.value);
+            return habitsData.filter(d => d.date === dateEl.value);
 
-    }
+            }
 
-    if (currentFilter === 'weekly') {
+        if (currentFilter === 'weekly') {
 
-        const weekStart = getWeekStart(selectedDate);
-        const weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekEnd.getDate() + 6);
+            const weekStart = getWeekStart(selectedDate);
+            const weekEnd = new Date(weekStart);
+            weekEnd.setDate(weekEnd.getDate() + 6);
 
-        return habitsData.filter(d => {
+            return habitsData.filter(d => {
 
             const dataDate = new Date(d.date);
 
