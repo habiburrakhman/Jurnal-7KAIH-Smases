@@ -262,7 +262,13 @@ class="bg-slate-100 hover:bg-slate-200 rounded-xl px-4 py-2 text-sm font-bold">
   <div id="toast" class="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-2xl text-sm font-semibold shadow-xl opacity-0 transition-opacity duration-300 z-50">
    <span id="toast-message">Data tersimpan!</span>
   </div>
- <script src="js/app.js"></script>
+<script>
+window.onerror = function(msg, src, line){
+    alert("ERROR : " + msg + "\nBaris : " + line);
+};
+</script>
+
+<script src="js/app.js"></script>
 
 </body>
 
