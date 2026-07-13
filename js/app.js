@@ -264,12 +264,21 @@ let editingId = null;
 
 }
 
-    function setCurrentDateAndMonth() {
-      const now = new Date();
-      document.getElementById('select-date').value = now.toISOString().split('T')[0];
-      document.getElementById('select-month').value = now.getMonth();
-      document.getElementById('select-year').value = now.getFullYear();
-    }
+function setCurrentDateAndMonth() {
+
+    const date = document.getElementById('select-date');
+    const month = document.getElementById('select-month');
+    const year = document.getElementById('select-year');
+
+    if (!date || !month || !year) return;
+
+    const now = new Date();
+
+    date.value = now.toISOString().split('T')[0];
+    month.value = now.getMonth();
+    year.value = now.getFullYear();
+
+}
 
     function updateProfileDisplay() {
       const emptyEl = document.getElementById('profile-empty');
