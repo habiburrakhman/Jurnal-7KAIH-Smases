@@ -242,16 +242,27 @@ let editingId = null;
 
 });
 
-    function initYearSelector() {
-      const yearSelect = document.getElementById('select-year');
-      const currentYear = new Date().getFullYear();
-      for (let y = currentYear - 2; y <= currentYear + 2; y++) {
+   function initYearSelector() {
+
+    const yearSelect = document.getElementById('select-year');
+
+    if (!yearSelect) return;
+
+    const currentYear = new Date().getFullYear();
+
+    for (let y = currentYear - 2; y <= currentYear + 2; y++) {
+
         const option = document.createElement('option');
+
         option.value = y;
+
         option.textContent = y;
+
         yearSelect.appendChild(option);
-      }
+
     }
+
+}
 
     function setCurrentDateAndMonth() {
       const now = new Date();
