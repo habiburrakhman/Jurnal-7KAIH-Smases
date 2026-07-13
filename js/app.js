@@ -105,53 +105,29 @@ function firstSetup(){
 }
     // App State
     let currentFilter = 'daily';
-const DB = {
+    let studentData = JSON.parse(localStorage.getItem('7kaih_student')) || null;
+    let habitsData = JSON.parse(localStorage.getItem('7kaih_habits')) || [];
+    let editingId = null;
 
-    studentKey : "7kaih_student",
+    // Initialize
+document.addEventListener('DOMContentLoaded', () => {
 
-    habitKey : "7kaih_habits",
+      const schoolName =
+    appConfig.school_name ||
+    defaultConfig.school_name;
 
-    getStudent(){
+      }
 
-        return JSON.parse(
-            localStorage.getItem(this.studentKey)
-        ) || null;
+      updateProfileDisplay();
+      initYearSelector();
+      setCurrentDateAndMonth();
+      renderDataList();
 
-    },
-
-    saveStudent(data){
-
-        localStorage.setItem(
-            this.studentKey,
-            JSON.stringify(data)
-        );
-
-    },
-
-    getHabits(){
-
-        return JSON.parse(
-            localStorage.getItem(this.habitKey)
-        ) || [];
-
-    },
-
-    saveHabits(data){
-
-        localStorage.setItem(
-            this.habitKey,
-            JSON.stringify(data)
-        );
-
+      document.getElementById('select-date').addEventListener('change', renderDataList);
+      document.getElementById('select-month').addEventListener('change', renderDataList);
+      document.getElementById('select-year').addEventListener('change', renderDataList);
+});
     }
-
-};
-
-let studentData = DB.getStudent();
-
-let habitsData = DB.getHabits();
-
-let editingId = null;
 
     // Habit configurations
     const habitConfig = {
@@ -224,61 +200,34 @@ let editingId = null;
 
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
+      checkSetup();
+      updateProfileDisplay();
+      initYearSelector();
+      setCurrentDateAndMonth();
+      renderDataList();
+      
+      document.getElementById('select-date').addEventListener('change', renderDataList);
+      document.getElementById('select-month').addEventListener('change', renderDataList);
+      document.getElementById('select-year').addEventListener('change', renderDataList);
+    });
 
-    const school = document.getElementById("school-name");
-
-    if (school) {
-        school.textContent = appConfig.school_name || defaultConfig.school_name;
-    }
-
-    updateProfileDisplay();
-    initYearSelector();
-    setCurrentDateAndMonth();
-    renderDataList();
-
-    document.getElementById('select-date').addEventListener('change', renderDataList);
-    document.getElementById('select-month').addEventListener('change', renderDataList);
-    document.getElementById('select-year').addEventListener('change', renderDataList);
-
-});
-
-   function initYearSelector() {
-
-    const yearSelect = document.getElementById('select-year');
-
-    if (!yearSelect) return;
-
-    const currentYear = new Date().getFullYear();
-
-    for (let y = currentYear - 2; y <= currentYear + 2; y++) {
-
+    function initYearSelector() {
+      const yearSelect = document.getElementById('select-year');
+      const currentYear = new Date().getFullYear();
+      for (let y = currentYear - 2; y <= currentYear + 2; y++) {
         const option = document.createElement('option');
-
         option.value = y;
-
         option.textContent = y;
-
         yearSelect.appendChild(option);
-
+      }
     }
 
-}
-
-function setCurrentDateAndMonth() {
-
-    const date = document.getElementById('select-date');
-    const month = document.getElementById('select-month');
-    const year = document.getElementById('select-year');
-
-    if (!date || !month || !year) return;
-
-    const now = new Date();
-
-    date.value = now.toISOString().split('T')[0];
-    month.value = now.getMonth();
-    year.value = now.getFullYear();
-
-}
+    function setCurrentDateAndMonth() {
+      const now = new Date();
+      document.getElementById('select-date').value = now.toISOString().split('T')[0];
+      document.getElementById('select-month').value = now.getMonth();
+      document.getElementById('select-year').value = now.getFullYear();
+    }
 
     function updateProfileDisplay() {
       const emptyEl = document.getElementById('profile-empty');
@@ -499,62 +448,33 @@ const data = {
     }
 
     function getFilteredData() {
-        const dateEl = document.getElementById('select-date');
-          const monthEl = document.getElementById('select-month');
-          const yearEl = document.getElementById('select-year');
-
-        if (!dateEl || !monthEl || !yearEl) {
-        return habitsData;
-        }
-
-        const selectedDate = new Date(dateEl.value);
-
-        if (currentFilter === 'daily') {
-
-            return habitsData.filter(d => d.date === dateEl.value);
-
-            }
-
-        if (currentFilter === 'weekly') {
-
-            const weekStart = getWeekStart(selectedDate);
-            const weekEnd = new Date(weekStart);
-            weekEnd.setDate(weekEnd.getDate() + 6);
-
-            return habitsData.filter(d => {
-
-            const dataDate = new Date(d.date);
-
-            return dataDate >= weekStart && dataDate <= weekEnd;
-
-        });
-
-    }
-
-    if (currentFilter === 'monthly') {
-
-        const month = parseInt(monthEl.value);
-        const year = parseInt(yearEl.value);
-
+      const selectedDate = new Date(document.getElementById('select-date').value);
+      
+      if (currentFilter === 'daily') {
+        const dateStr = document.getElementById('select-date').value;
+        return habitsData.filter(d => d.date === dateStr);
+      } else if (currentFilter === 'weekly') {
+        const weekStart = getWeekStart(selectedDate);
+        const weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekEnd.getDate() + 6);
+        
         return habitsData.filter(d => {
-
-            const date = new Date(d.date);
-
-            return date.getMonth() === month &&
-                   date.getFullYear() === year;
-
+          const dataDate = new Date(d.date);
+          return dataDate >= weekStart && dataDate <= weekEnd;
         });
-
+      } else if (currentFilter === 'monthly') {
+        const month = parseInt(document.getElementById('select-month').value);
+        const year = parseInt(document.getElementById('select-year').value);
+        return habitsData.filter(d => {
+          const date = new Date(d.date);
+          return date.getMonth() === month && date.getFullYear() === year;
+        });
+      }
+      return habitsData;
     }
 
-    return habitsData;
-
-}
     function renderDataList() {
       const container = document.getElementById('data-list');
-
-      if (!container) return;
-
       const filteredData = getFilteredData();
       
       // Sort by date descending
@@ -905,16 +825,9 @@ const data = {
     }
 
     // Close modal on overlay click
-const modalOverlay = document.getElementById('modal-overlay');
-
-if (modalOverlay) {
-
-    modalOverlay.addEventListener('click', (e) => {
-
-        if (e.target.id === 'modal-overlay') {
-            closeModal();
-        }
-
+    document.getElementById('modal-overlay').addEventListener('click', (e) => {
+      if (e.target.id === 'modal-overlay') {
+        closeModal();
+      }
     });
-
 }
