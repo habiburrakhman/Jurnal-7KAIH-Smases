@@ -876,9 +876,16 @@ const data = {
     }
 
     // Close modal on overlay click
-    document.getElementById('modal-overlay').addEventListener('click', (e) => {
-      if (e.target.id === 'modal-overlay') {
-        closeModal();
-      }
+const modalOverlay = document.getElementById('modal-overlay');
+
+if (modalOverlay) {
+
+    modalOverlay.addEventListener('click', (e) => {
+
+        if (e.target.id === 'modal-overlay') {
+            closeModal();
+        }
+
     });
 
+}
