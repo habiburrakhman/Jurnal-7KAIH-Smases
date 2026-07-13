@@ -208,8 +208,58 @@ class="bg-slate-100 hover:bg-slate-200 rounded-xl px-4 py-2 text-sm font-bold">
     <h3 class="font-bold text-slate-700 text-sm">Identitas Siswa</h3>
     <p class="text-slate-400 text-xs mt-0.5">Data diri</p>
 </button> 
-    <!-- Data Count -->
-    <p id="data-count" class="text-center text-slate-400 text-xs mt-3">Total: 0 data</p>
+   <!-- Filter -->
+<div class="col-span-2 mt-4">
+
+    <div class="flex gap-2 mb-3">
+
+        <button id="filter-daily" onclick="setFilter('daily')" class="filter-btn bg-royal text-white px-4 py-2 rounded-xl">
+            Harian
+        </button>
+
+        <button id="filter-weekly" onclick="setFilter('weekly')" class="filter-btn bg-white border px-4 py-2 rounded-xl">
+            Mingguan
+        </button>
+
+        <button id="filter-monthly" onclick="setFilter('monthly')" class="filter-btn bg-white border px-4 py-2 rounded-xl">
+            Bulanan
+        </button>
+
+    </div>
+
+    <div id="date-selector">
+        <input type="date" id="select-date" class="border rounded-xl p-2 w-full">
+    </div>
+
+    <div id="month-selector" class="hidden">
+
+        <select id="select-month" class="border rounded-xl p-2">
+
+            <option value="0">Januari</option>
+            <option value="1">Februari</option>
+            <option value="2">Maret</option>
+            <option value="3">April</option>
+            <option value="4">Mei</option>
+            <option value="5">Juni</option>
+            <option value="6">Juli</option>
+            <option value="7">Agustus</option>
+            <option value="8">September</option>
+            <option value="9">Oktober</option>
+            <option value="10">November</option>
+            <option value="11">Desember</option>
+
+        </select>
+
+        <select id="select-year" class="border rounded-xl p-2"></select>
+
+    </div>
+
+    <div id="data-list" class="mt-4"></div>
+
+    <p id="data-count" class="text-center text-slate-500 mt-3">
+        Total: 0 data
+    </p>
+ 
    </div>
   </div><!-- Modal Overlay -->
   <div id="modal-overlay" class="fixed inset-0 modal-overlay z-50 hidden flex items-end justify-center">
