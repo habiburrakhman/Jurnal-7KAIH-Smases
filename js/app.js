@@ -310,11 +310,21 @@ let habitsData = DB.getHabits();
 
 }
     function openModal(type) {
+
+    console.log("openModal:", type);
+
+    const overlay = document.getElementById('modal-overlay');
+    const content = document.getElementById('modal-content');
+    const title = document.getElementById('modal-title');
+    const body = document.getElementById('modal-body');
       const overlay = document.getElementById('modal-overlay');
       const content = document.getElementById('modal-content');
       const title = document.getElementById('modal-title');
       const body = document.getElementById('modal-body');
-      
+      if (!overlay || !content || !title || !body) {
+    console.error("Modal tidak ditemukan");
+    return;
+}
       overlay.classList.remove('hidden');
       setTimeout(() => {
         content.classList.remove('translate-y-full');
