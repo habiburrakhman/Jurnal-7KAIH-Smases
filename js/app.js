@@ -552,6 +552,9 @@ const data = {
 }
     function renderDataList() {
       const container = document.getElementById('data-list');
+
+      if (!container) return;
+
       const filteredData = getFilteredData();
       
       // Sort by date descending
