@@ -499,31 +499,58 @@ const data = {
     }
 
     function getFilteredData() {
-      const selectedDate = new Date(document.getElementById('select-date').value);
-      
-      if (currentFilter === 'daily') {
-        const dateStr = document.getElementById('select-date').value;
-        return habitsData.filter(d => d.date === dateStr);
-      } else if (currentFilter === 'weekly') {
+
+    const dateEl = document.getElementById('select-date');
+    const monthEl = document.getElementById('select-month');
+    const yearEl = document.getElementById('select-year');
+
+    if (!dateEl || !monthEl || !yearEl) {
+        return habitsData;
+    }
+
+    const selectedDate = new Date(dateEl.value);
+
+    if (currentFilter === 'daily') {
+
+        return habitsData.filter(d => d.date === dateEl.value);
+
+    }
+
+    if (currentFilter === 'weekly') {
+
         const weekStart = getWeekStart(selectedDate);
         const weekEnd = new Date(weekStart);
         weekEnd.setDate(weekEnd.getDate() + 6);
-        
+
         return habitsData.filter(d => {
-          const dataDate = new Date(d.date);
-          return dataDate >= weekStart && dataDate <= weekEnd;
+
+            const dataDate = new Date(d.date);
+
+            return dataDate >= weekStart && dataDate <= weekEnd;
+
         });
-      } else if (currentFilter === 'monthly') {
-        const month = parseInt(document.getElementById('select-month').value);
-        const year = parseInt(document.getElementById('select-year').value);
-        return habitsData.filter(d => {
-          const date = new Date(d.date);
-          return date.getMonth() === month && date.getFullYear() === year;
-        });
-      }
-      return habitsData;
+
     }
 
+    if (currentFilter === 'monthly') {
+
+        const month = parseInt(monthEl.value);
+        const year = parseInt(yearEl.value);
+
+        return habitsData.filter(d => {
+
+            const date = new Date(d.date);
+
+            return date.getMonth() === month &&
+                   date.getFullYear() === year;
+
+        });
+
+    }
+
+    return habitsData;
+
+}
     function renderDataList() {
       const container = document.getElementById('data-list');
       const filteredData = getFilteredData();
