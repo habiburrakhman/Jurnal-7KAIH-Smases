@@ -105,29 +105,52 @@ function firstSetup(){
 }
     // App State
     let currentFilter = 'daily';
-    let studentData = JSON.parse(localStorage.getItem('7kaih_student')) || null;
-    let habitsData = JSON.parse(localStorage.getItem('7kaih_habits')) || [];
-    let editingId = null;
+const DB = {
 
-    // Initialize
-document.addEventListener('DOMContentLoaded', () => {
+    studentKey : "7kaih_student",
 
-      const schoolName =
-    appConfig.school_name ||
-    defaultConfig.school_name;
+    habitKey : "7kaih_habits",
 
-      }
+    getStudent(){
 
-      updateProfileDisplay();
-      initYearSelector();
-      setCurrentDateAndMonth();
-      renderDataList();
+        return JSON.parse(
+            localStorage.getItem(this.studentKey)
+        ) || null;
 
-      document.getElementById('select-date').addEventListener('change', renderDataList);
-      document.getElementById('select-month').addEventListener('change', renderDataList);
-      document.getElementById('select-year').addEventListener('change', renderDataList);
-});
+    },
+
+    saveStudent(data){
+
+        localStorage.setItem(
+            this.studentKey,
+            JSON.stringify(data)
+        );
+
+    },
+
+    getHabits(){
+
+        return JSON.parse(
+            localStorage.getItem(this.habitKey)
+        ) || [];
+
+    },
+
+    saveHabits(data){
+
+        localStorage.setItem(
+            this.habitKey,
+            JSON.stringify(data)
+        );
+
     }
+
+};
+
+let studentData = DB.getStudent();
+
+let habitsData = DB.getHabits();
+    let editingId = null;
 
     // Habit configurations
     const habitConfig = {
@@ -200,16 +223,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
-      checkSetup();
-      updateProfileDisplay();
-      initYearSelector();
-      setCurrentDateAndMonth();
-      renderDataList();
-      
-      document.getElementById('select-date').addEventListener('change', renderDataList);
-      document.getElementById('select-month').addEventListener('change', renderDataList);
-      document.getElementById('select-year').addEventListener('change', renderDataList);
-    });
+
+    const school = document.getElementById("school-name");
+
+    if (school) {
+        school.textContent = appConfig.school_name || defaultConfig.school_name;
+    }
+
+    updateProfileDisplay();
+    initYearSelector();
+    setCurrentDateAndMonth();
+    renderDataList();
+
+    document.getElementById('select-date').addEventListener('change', renderDataList);
+    document.getElementById('select-month').addEventListener('change', renderDataList);
+    document.getElementById('select-year').addEventListener('change', renderDataList);
+
+});
 
     function initYearSelector() {
       const yearSelect = document.getElementById('select-year');
@@ -830,4 +860,3 @@ const data = {
         closeModal();
       }
     });
-}
