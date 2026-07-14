@@ -252,6 +252,23 @@ let habitsData = DB.getHabits();
 
 });
 
+    const school = document.getElementById("school-name");
+
+    if (school) {
+        school.textContent = appConfig.school_name || defaultConfig.school_name;
+    }
+
+    updateProfileDisplay();
+    initYearSelector();
+    setCurrentDateAndMonth();
+    renderDataList();
+
+    document.getElementById('select-date').addEventListener('change', renderDataList);
+    document.getElementById('select-month').addEventListener('change', renderDataList);
+    document.getElementById('select-year').addEventListener('change', renderDataList);
+
+});
+
     function initYearSelector() {
       const yearSelect = document.getElementById('select-year');
       const currentYear = new Date().getFullYear();
@@ -294,11 +311,16 @@ let habitsData = DB.getHabits();
 }
     function openModal(type) {
 
+    console.log("openModal:", type);
+
     const overlay = document.getElementById('modal-overlay');
     const content = document.getElementById('modal-content');
     const title = document.getElementById('modal-title');
     const body = document.getElementById('modal-body');
-      
+      const overlay = document.getElementById('modal-overlay');
+      const content = document.getElementById('modal-content');
+      const title = document.getElementById('modal-title');
+      const body = document.getElementById('modal-body');
       if (!overlay || !content || !title || !body) {
     console.error("Modal tidak ditemukan");
     return;
@@ -871,12 +893,8 @@ const data = {
     }
 
     // Close modal on overlay click
-    const modalOverlay = document.getElementById('modal-overlay');
-
-if (modalOverlay) {
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target.id === 'modal-overlay') {
-            closeModal();
-        }
+    document.getElementById('modal-overlay').addEventListener('click', (e) => {
+      if (e.target.id === 'modal-overlay') {
+        closeModal();
+      }
     });
-}
