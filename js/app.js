@@ -550,6 +550,7 @@ const data = {
                 </button>
               </div>
             ` : `
+              ${APP_MODE === "developer" ? `
               <div class="flex gap-1">
                 <button onclick="editHabit(${item.id})" class="text-blue-500 hover:text-blue-700 p-1" title="Edit">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -564,6 +565,8 @@ const data = {
               </div>
             `}
           </div>
+          ` : ""}
+              
         `).join('');
       }
       
