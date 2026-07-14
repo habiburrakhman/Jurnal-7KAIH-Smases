@@ -225,34 +225,6 @@ let habitsData = DB.getHabits();
     document.addEventListener('DOMContentLoaded', () => {
 
     const school = document.getElementById("school-name");
-    if (school) {
-        school.textContent = appConfig.school_name || defaultConfig.school_name;
-    }
-
-    updateProfileDisplay();
-
-    if (document.getElementById('select-year')) {
-        initYearSelector();
-    }
-
-    if (
-        document.getElementById('select-date') &&
-        document.getElementById('select-month') &&
-        document.getElementById('select-year')
-    ) {
-
-        setCurrentDateAndMonth();
-        renderDataList();
-
-        document.getElementById('select-date').addEventListener('change', renderDataList);
-        document.getElementById('select-month').addEventListener('change', renderDataList);
-        document.getElementById('select-year').addEventListener('change', renderDataList);
-
-    }
-
-});
-
-    const school = document.getElementById("school-name");
 
     if (school) {
         school.textContent = appConfig.school_name || defaultConfig.school_name;
