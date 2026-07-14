@@ -568,6 +568,14 @@ const data = {
       }
       
       document.getElementById('data-count').textContent = `Total: ${filteredData.length} data`;
+
+        // Sembunyikan tombol edit & hapus pada mode siswa
+        if (APP_MODE === "student") {
+            document.querySelectorAll('button[title="Edit"], button[title="Hapus"]').forEach(btn => {
+                btn.style.display = "none";
+        });
+}
+        
     }
 
     function editHabit(id) {
