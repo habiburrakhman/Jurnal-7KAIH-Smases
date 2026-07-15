@@ -821,10 +821,10 @@ const data = {
       const rightSideX = pageWidth - rightMargin - 50;
       doc.text('Denpasar, ' + new Date().toLocaleDateString('id-ID'), rightSideX, finalY);
       
-      // Jarak 1 baris spasi (3.5mm), kemudian label Orang Tua/Wali (kiri) dan Wali Kelas (kanan) - sejajar
+      // Jarak 1 baris spasi (3.5mm), kemudian label Orang Tua/Wali (kiri) dan Guru Wali (kanan) - sejajar
       const labelY = finalY + lineSpacing;
       doc.text('Orang Tua/Wali', leftMargin + 8, labelY);
-      doc.text('Wali Kelas', rightSideX, labelY);
+      doc.text('Guru Wali', rightSideX, labelY);
       
       // Jarak untuk ruang tanda tangan (15mm)
       const signLineY = labelY + 15;
@@ -834,7 +834,7 @@ const data = {
       doc.setLineWidth(0.3);
       doc.line(leftMargin + 8, signLineY, leftMargin + 43, signLineY);
       
-      // Garis untuk tanda tangan Wali Kelas (kanan) - sejajar dengan garis ortu
+      // Garis untuk tanda tangan Guru Wali (kanan) - sejajar dengan garis ortu
       doc.line(rightSideX, signLineY, rightSideX + 35, signLineY);
       
       // Add page numbers and print date at bottom
